@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Expense Tracker</title>
+    <link rel="stylesheet" href="{% static 'expenses/styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Personal Expense Tracker</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'add_expense' %}">Add Expense</a></li>
+                <li><a href="{% url 'summary_by_date' %}">Summary by Date</a></li>
+                <li><a href="{% url 'summary_by_category' %}">Summary by Category</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer>
+        <p>&copy; Ankita's Personal Expense Tracker</p>
+    </footer>
+</body>
+</html>

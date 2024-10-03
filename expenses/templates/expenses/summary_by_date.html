@@ -1,0 +1,36 @@
+{% extends 'expenses/base.html' %}
+
+{% block content %}
+<section class="summary-date">
+    <h2>Summary by Date</h2>
+    <form method="post">
+        {% csrf_token %}
+        <label for="date">Enter Date:</label>
+        <input type="date" id="date" name="date" required>
+        <button type="submit">View Summary</button>
+    </form>
+
+    {% if expenses %}
+        <h3>Expenses on {{ date }}</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Category</th>
+                    <th>Description</th>
+                    <th>Amount ($)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for expense in expenses %}
+                    <tr>
+                        <td>{{ expense.category }}</td>
+                        <td>{{ expense.description }}</td>
+                        <td>{{ expense.amount }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <p>Total Expenses on {{ date }}: ${{ total }}</p>
+    {% endif %}
+</section>
+{% endblock %}
